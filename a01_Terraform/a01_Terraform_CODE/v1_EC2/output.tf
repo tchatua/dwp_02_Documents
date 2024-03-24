@@ -1,4 +1,19 @@
-output "v1-ec2_instance_id" {
-    value = "aws_instance.ec2.id"
-    description = "V1 EC2 Instance ID"
+output "instance_ids" {
+  value = {
+    for instance_key, instance in aws_instance.ec2 :
+    instance_key => instance.id
+  }
+}
+
+output "private_ips" {
+  value = {
+    for instance_key, instance in aws_instance.ec2 :
+    instance_key => instance.private_ip
+  }
+}
+output "public_ips" {
+  value = {
+    for instance_key, instance in aws_instance.ec2 :
+    instance_key => instance.public_ip
+  }
 }

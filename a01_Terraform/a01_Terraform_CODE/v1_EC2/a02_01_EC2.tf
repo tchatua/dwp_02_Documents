@@ -4,13 +4,10 @@ resource "aws_instance" "ec2" {
   key_name        = data.aws_key_pair.my_key.key_name
   depends_on      = [aws_security_group.v1_sg]
   security_groups = [aws_security_group.v1_sg.name] # list of strings
-  user_data = file("script.sh")
-
-
-
-
+  user_data       = file("script.sh")
+  for_each        = toset(["jenkin-controller", "jenkins-worker-node", "ansible-controller"])
   tags = {
-    Name          = "${var.name}-EC2"
+    Name          = "${each.key}"
     Project       = var.project
     Folder        = var.folder
     ManagedBy     = var.managedby
