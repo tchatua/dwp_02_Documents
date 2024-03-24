@@ -1,5 +1,5 @@
 output "dwp_vpc_id" {
-  value       = aws_vpc.dwp_vpc.id
+  value       = aws_vpc.dwp_vpc.id 
   description = ""
 }
 

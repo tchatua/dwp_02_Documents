@@ -2,9 +2,9 @@
 region = "us-east-1"
 
 # a01_02 General variables
-name          = "dwp"
+name          = "dwp-dev"
 project       = "CICD Pipeline using Terraform, Jenkins, SonarQube, Artifactory, Ansible, Docker, Kubernetes, Helm, Prometheus and Grafana"
-folder        = "a/a02_2024/d05_Udemy/d06_DevOps_Project _Workshop/dwp_02_Documents/a01_Terraform/a01_Terraform_CODE/v2_vpc"
+folder        = "a/a02_2024/d05_Udemy/d06_DevOps_Project _Workshop/dwp_02_Documents/a01_Terraform/a01_Terraform_CODE/v01_02_vpc_dev"
 managedby     = "Terraform"
 owner         = "Arristide Tchatua"
 administrator = "tchattua@gmail.com"
@@ -18,8 +18,8 @@ map_public_ip_on_launch = "true"
 availability_zone_1     = "us-east-1a"
 
 # Public subnet 2
-cidr_block_pub_sub_2    = "192.168.20.0/24"
-availability_zone_2     = "us-east-1b"
+cidr_block_pub_sub_2 = "192.168.20.0/24"
+availability_zone_2  = "us-east-1b"
 
 # Public route table
 internet_open_ip = "0.0.0.0/0"

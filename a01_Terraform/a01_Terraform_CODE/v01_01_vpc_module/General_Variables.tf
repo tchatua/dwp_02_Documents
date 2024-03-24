@@ -1,6 +1,3 @@
-# Region
-variable "region" {}
-
 # tags: map of multiple strings
 variable "name" {}
 variable "project" {

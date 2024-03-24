@@ -2,11 +2,11 @@
 region = "us-east-1"
 
 # a02 EC2
-ami_ec2       = "ami-0c101f26f147fa7fd"
+ami_ec2       = "ami-080e1f13689e07408"
 instance_type = "t2.micro"
 
 # a01_02 General variables
-name          = "v1"
+name          = "dwp-ec2"
 project       = "CICD Pipeline using Terraform, Jenkins, SonarQube, Artifactory, Ansible, Docker, Kubernetes, Helm, Prometheus and Grafana"
 folder        = "a/a02_2024/d05_Udemy/d06_DevOps_Project _Workshop/dwp_02_Documents/a01_Terraform/a01_Terraform_CODE/v1_EC2"
 managedby     = "Terraform"

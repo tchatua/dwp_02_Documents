@@ -10,3 +10,4 @@ resource "aws_vpc" "dwp_vpc" {
     Administrator = var.administrator
   }
 }
+
