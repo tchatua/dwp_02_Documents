@@ -1,5 +1,0 @@
----
-- hosts: jenkins-controller
-  become: true
-  tasks:
-    
