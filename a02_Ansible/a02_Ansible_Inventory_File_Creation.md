@@ -9,22 +9,22 @@ vim /opt/hosts
 ```
 ```yml
 [ansible_controller]
-172.31.61.78
+192.168.10.39
 [ansible_controller:vars]
-ansible_user=ubuntu
-ansible_ssh_private_key_file=/opt/terraform_dwp.pem
+ansible_user=ec2-user
+ansible_ssh_private_key_file=/opt/ansible/terraform_dwp.pem
 
 [jenkins_controller]
-172.31.63.189
+192.168.20.68
 [jenkins_controller:vars]
-ansible_user=ubuntu
-ansible_ssh_private_key_file=/opt/terraform_dwp.pem
+ansible_user=ec2-user
+ansible_ssh_private_key_file=/opt/ansible/terraform_dwp.pem
 
-[jenkins_worker_node_maven]
-172.31.61.249
-[jenkins_worker_node_maven:vars]
-ansible_user=ubuntu
-ansible_ssh_private_key_file=/opt/terraform_dwp.pem
+[maven]
+192.168.20.57
+[maven:vars]
+ansible_user=ec2-user
+ansible_ssh_private_key_file=/opt/ansible/terraform_dwp.pem
 ```
 
 ## Using MobaXterm CLI Drag and drop thye private PEM key on /opt/ directory on my Ansible Controller
