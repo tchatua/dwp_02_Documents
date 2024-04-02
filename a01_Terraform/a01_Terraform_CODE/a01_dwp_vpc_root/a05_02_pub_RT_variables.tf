@@ -1,1 +1,0 @@
-variable "internet_open_ip" {}

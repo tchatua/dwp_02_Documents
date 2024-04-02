@@ -1,2 +1,0 @@
-# Region
-variable "region" {}

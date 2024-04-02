@@ -13,3 +13,49 @@ pipeline {
         }
     }
 }
+# ###########################################################################
+https://jfrog.com/help/r/jfrog-integrations-documentation/working-with-pipeline-jobs-in-jenkins
+def server = Artifactory.newServer url: 'artifactory-url', username: 'username', password: 'password'
+
+def uploadSpec = """{
+  "files": [
+    {
+      "pattern": "bazinga/*froggy*.zip",
+      "target": "bazinga-repo/froggy-files/"
+    }
+ ]
+}"""
+server.upload spec: uploadSpec 
+#
+JFrog artifactory URL:  https://goumgue81.jfrog.io/
+Artifact Location:      /home/ec2-user/jenkins/workspace/and_scan_with_sonarqube_JOB_main/jarstaging/com/goumgue/agt-workshop/2.1.2               
+Credential:             jfrog-token-id 
+# ###########################################################################
+
+
+def registry = 'https://goumgue81.jfrog.io'
+    stage("Jar Publish") {
+   steps {
+       script {
+               echo '<--------------- Jar Publish Started --------------->'
+                def server = Artifactory.newServer url:registry+"/artifactory" ,  credentialsId:"jfrog-token-id"
+                def properties = "buildid=${env.BUILD_ID},commitid=${GIT_COMMIT}";
+                def uploadSpec = """{
+                     "files": [
+                       {
+                         "pattern": "jarstaging/(*)",
+                         "target": "libs-release-local/{1}",
+                         "flat": "false",
+                         "props" : "${properties}",
+                         "exclusions": [ "*.sha1", "*.md5"]
+                       }
+                    ]
+                }"""
+                def buildInfo = server.upload(uploadSpec)
+                buildInfo.env.collect()
+                server.publishBuildInfo(buildInfo)
+                echo '<--------------- Jar Publish Ended --------------->'  
+       
+       }
+}   
+   
