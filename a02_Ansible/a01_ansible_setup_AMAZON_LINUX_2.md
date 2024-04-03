@@ -2,9 +2,9 @@
 
 ## Setup Hostname
 ```bash
-sudo hostnamectl set-hostname ansible-controller 
-sudo hostnamectl set-hostname jenkins-controller 
-sudo hostnamectl set-hostname maven-builder 
+sudo hostnamectl set-hostname ansible-controller
+sudo hostnamectl set-hostname jenkins-controller
+sudo hostnamectl set-hostname maven-builder
 ```
 ## Installation steps:
 Step 1 — Install the latest version of a packages 

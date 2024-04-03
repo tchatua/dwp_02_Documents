@@ -18,7 +18,7 @@ resource "aws_instance" "ansible_ec2" {
   key_name        = data.aws_key_pair.my_key.key_name
   # security_groups = [aws_security_group.ansible_sg.name] # list of strings
   vpc_security_group_ids = [aws_security_group.ansible_sg.id]
-  subnet_id       = var.dwp_pub_sub_01_id
+  subnet_id       = var.dwp_pub_sub_01_id 
   associate_public_ip_address = true
   tags = {
     Name          = "${var.name}-ec2"

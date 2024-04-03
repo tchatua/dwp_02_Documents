@@ -1,0 +1,46 @@
+---
+- hosts: jenkins
+  become: true
+  # vars:
+  #   # jenkins_packages:
+  #   #   - jenkins  
+  tasks:
+    - name: 1 Update local package index
+      yum:
+        name: '*'
+        state: latest 
+    - name: 2 Download Jenkins repository file
+      get_url:
+        url: https://pkg.jenkins.io/redhat-stable/jenkins.repo
+        dest: /etc/yum.repos.d/jenkins.repo
+    - name: 3 Import Jenkins-CI key
+      shell: rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key 
+      # warn: false
+    - name: 4 Upgrade all packages
+      yum:
+        name: '*'
+        state: latest 
+    - name: 5 Install Java
+      command: amazon-linux-extras install java-openjdk11 -y
+      # yum:
+      #   name: amazon-linux-extras install java-openjdk11
+      #   state: present
+    - name: 6 Install Jenkins
+      command: yum install -y jenkins
+      # warn: false
+      # yum:
+      #   name: "{{ jenkins_packages }}"
+      #   state: present
+    - name: 7 Start Jenkins service
+      service:
+        name: jenkins
+        state: started
+    - name: 8 Enable service jenkins
+      service:
+        name: jenkins
+        enabled: yes
+    - name: 9/9 Install git
+      yum:
+        name: git
+        state: present
+

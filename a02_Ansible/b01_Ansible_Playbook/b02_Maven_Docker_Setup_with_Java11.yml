@@ -1,0 +1,52 @@
+--- 
+- hosts: maven
+  become: true
+  tasks: 
+    - name: 1 Update YUM package cache
+      yum:
+        update_cache: yes
+    - name: 2 Upgrade packages
+      yum:
+        name: '*'
+        state: latest 
+    - name: 3 Installing Amazon Linux extras
+      command: amazon-linux-extras install epel -y
+    - name: 5 Install Java
+      command: amazon-linux-extras install java-openjdk11 -y
+    - name: 6 Download Maven packages
+      get_url:  
+        url: https://dlcdn.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz 
+        dest: /opt
+    - name: 7 Extract Maven packages
+      unarchive: 
+        src: /opt/apache-maven-3.9.6-bin.tar.gz
+        dest: /opt
+        remote_src: yes
+    - name: 8 Install git
+      yum:
+        name: git
+        state: present
+    - name: 9 Enable Docker Amazon Linux Extra
+      command: amazon-linux-extras install docker -y
+      # community.general.amazon.aws.amazon_linux_extras:
+      #   name: docker
+      #   state: present
+    - name: 10 Install Docker
+      package:
+        name: docker
+        state: present
+    - name: 11 Start and Enable Docker service
+      service:
+        name: docker
+        state: started
+        enabled: yes
+    - name: 12 Add ec2-user user to Docker group
+      shell: usermod -aG docker ec2-user
+      args:
+        executable: /bin/bash
+    - name: 13 Give 777 permissions on /var/run/docker.sock 
+      file:
+        path: /var/run/docker.sock 
+        state: file 
+        mode: 0777
+# Add path to bash_profile (OPTIONAL)

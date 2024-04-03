@@ -1,20 +1,182 @@
-# dwp_02_Documents
+# Ansible
+
+```sh
+sudo hostnamectl set-hostname ansible-controller
+```
+## Inventory file
+```yml
+[ansible]
+192.168.10.39
+[ansible:vars]
+ansible_user=ec2-user
+ansible_ssh_private_key_file=/opt/ansible/terraform_dwp.pem
+
+[jenkins]
+192.168.20.24
+[jenkins:vars]
+ansible_user=ec2-user
+ansible_ssh_private_key_file=/opt/ansible/terraform_dwp.pem
+
+[maven]
+192.168.20.98
+[maven:vars]
+ansible_user=ec2-user
+ansible_ssh_private_key_file=/opt/ansible/terraform_dwp.pem 
+```
+
+```sh
+ansible all -m ping -i a01_hosts
+```
+
+### Ansible playbook to setup Jenkins 
+```yml
+# vim 01_Jenkins_Setup.yml
+---
+- hosts: jenkins
+  become: true
+  vars:
+    # java_packages:
+    #   - 
+    jenkins_packages:
+      - jenkins  
+  tasks:
+    - name: 1 Update local package index
+      yum:
+        name: '*'
+        state: latest 
+    - name: 2 Download Jenkins repository file
+      get_url:
+        url: https://pkg.jenkins.io/redhat-stable/jenkins.repo
+        dest: /etc/yum.repos.d/jenkins.repo
+    - name: 3 Import Jenkins-CI key
+      shell: rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key 
+      warn: false
+    - name: 4 Upgrade all packages
+      yum:
+        name: '*'
+        state: latest 
+    - name: 5 Install Java
+      yum:
+        name: amazon-linux-extras install java-openjdk11
+        state: present
+    - name: 6 Install Jenkins
+      yum:
+        name: "{{ jenkins_packages }}"
+        state: present
+    - name: 7 Start Jenkins service
+      service:
+        name: jenkins
+        state: started
+    - name: 8 Enable service jenkins
+      service:
+        name: jenkins
+        enabled: yes
+    - name: 9/9 Install git
+      yum:
+        name: git
+        state: present
+```
+
+### Ansible playbook to setup Maven
+```yml
+---
+- hosts: jenkins
+  become: true
+  # vars:
+  #   # jenkins_packages:
+  #   #   - jenkins  
+  tasks:
+    - name: 1 Update local package index
+      yum:
+        name: '*'
+        state: latest 
+    - name: 2 Download Jenkins repository file
+      get_url:
+        url: https://pkg.jenkins.io/redhat-stable/jenkins.repo
+        dest: /etc/yum.repos.d/jenkins.repo
+    - name: 3 Import Jenkins-CI key
+      shell: rpm --import https://pkg.jenkins.io/redhat-stable/jenkins.io-2023.key 
+      # warn: false
+    - name: 4 Upgrade all packages
+      yum:
+        name: '*'
+        state: latest 
+    - name: 5 Install Java
+      command: amazon-linux-extras install java-openjdk11 -y
+      # yum:
+      #   name: amazon-linux-extras install java-openjdk11
+      #   state: present
+    - name: 6 Install Jenkins
+      command: yum install -y jenkins
+      # warn: false
+      # yum:
+      #   name: "{{ jenkins_packages }}"
+      #   state: present
+    - name: 7 Start Jenkins service
+      service:
+        name: jenkins
+        state: started
+    - name: 8 Enable service jenkins
+      service:
+        name: jenkins
+        enabled: yes
+    - name: 9/9 Install git
+      yum:
+        name: git
+        state: present
+```
+
+```sh
+
+```
+
+```sh
+
+```
+
+```sh
+
+```
+
+# Jenkins controller Node
+
+```sh
+
+```
+
+```sh
+
+```
+
+```sh
+
+```
+
+```sh
+
+```
+# Maven: Jenkins worker node
+
+```sh
+sudo hostnamectl set-hostname maven-builder
+
+```
+
+```sh
+
+```
+
+```sh
+
+```
+
+```sh
+
+```
+
+```sh
+
+```
 
 
-$ ls -al
-total 49
-drwxr-xr-x 1 Tchatua 197609    0 Mar 24 00:14 ./
-drwxr-xr-x 1 Tchatua 197609    0 Mar 23 23:29 ../
-drwxr-xr-x 1 Tchatua 197609    0 Mar 23 23:39 .terraform/
--rw-r--r-- 1 Tchatua 197609 1406 Mar 23 23:40 .terraform.lock.hcl
--rw-r--r-- 1 Tchatua 197609  168 Mar 23 23:40 a01_01_Provider.tf
--rw-r--r-- 1 Tchatua 197609  878 Mar 23 23:48 a01_02_General_Variables.tf
--rw-r--r-- 1 Tchatua 197609  514 Mar 24 00:12 a02_01_EC2.tf
--rw-r--r-- 1 Tchatua 197609   54 Mar 23 23:22 a02_02_EC2_Variables.tf
--rw-r--r-- 1 Tchatua 197609  258 Mar 23 23:23 a02_03_Data.tf
--rw-r--r-- 1 Tchatua 197609 1044 Mar 24 00:11 a03_01_SG.tf
--rw-r--r-- 1 Tchatua 197609  230 Mar 24 00:00 a03_02_SG_Variables.tf
--rw-r--r-- 1 Tchatua 197609    0 Mar 23 23:57 output.tf
--rw-r--r-- 1 Tchatua 197609 9423 Mar 24 00:14 terraform.tfstate
--rw-r--r-- 1 Tchatua 197609 6615 Mar 24 00:14 terraform.tfstate.backup
--rw-r--r-- 1 Tchatua 197609  841 Mar 24 00:04 terraform.tfvars
+

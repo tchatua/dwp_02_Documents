@@ -1,0 +1,29 @@
+--- 
+- hosts: maven
+  become: true
+  tasks: 
+    - name: 1 Update YUM package cache
+      yum:
+        update_cache: yes
+    - name: 2 Upgrade packages
+      yum:
+        name: '*'
+        state: latest 
+    - name: 3 Installing Amazon Linux extras
+      command: amazon-linux-extras install epel -y
+    - name: 5 Install Java
+      command: amazon-linux-extras install java-openjdk11 -y
+    - name: 6 Download Maven packages
+      get_url:  
+        url: https://dlcdn.apache.org/maven/maven-3/3.9.6/binaries/apache-maven-3.9.6-bin.tar.gz 
+        dest: /opt
+    - name: 7 Extract Maven packages
+      unarchive: 
+        src: /opt/apache-maven-3.9.6-bin.tar.gz
+        dest: /opt
+        remote_src: yes
+    - name: 8 Install git
+      yum:
+        name: git
+        state: present
+# Add path to bash_profile (OPTIONAL)
