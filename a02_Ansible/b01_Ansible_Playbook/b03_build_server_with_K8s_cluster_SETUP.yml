@@ -2,6 +2,8 @@
 - name: bootstrap server configuration
   hosts: maven
   become: true
+  vars_files:
+    - /opt/ansible/encrypted/aws_credentials.yml
   tasks:
     - name: download kubectl
       shell: curl -LO https://dl.k8s.io/release/v1.29.2/bin/linux/amd64/kubectl
@@ -19,5 +21,12 @@
     - name: unzip awscli package 
       shell: unzip awscliv2.zip    
     - name: install awscli  
-      shell: ./aws/install --update
-    # ######################################################################################
+      # shell: ./aws/install --update
+      shell: ./aws/install
+    ######################################################################################
+    # - name: Configure AWS CLI
+    #   command: aws configure set {{ item.key }} {{ item.value }}
+    #   with_items:
+    #     - { key: "aws_access_key_id", value: "{{ aws_access_key_id }}" }
+    #     - { key: "aws_secret_access_key", value: "{{ aws_secret_access_key }}" }
+    #     - { key: "region", value: "{{ region }}" }

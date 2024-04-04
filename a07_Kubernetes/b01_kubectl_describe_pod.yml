@@ -1,0 +1,60 @@
+# kubectl describe pod/goumgue-dwp-5bdc657855-55tw6 -n dev
+Name:             goumgue-dwp-5bdc657855-55tw6
+Namespace:        dev
+Priority:         0
+Service Account:  default
+Node:             ip-192-168-20-214.ec2.internal/192.168.20.214
+Start Time:       Thu, 04 Apr 2024 02:21:04 +0000
+Labels:           app=goumgue-dwp
+                  pod-template-hash=5bdc657855
+Annotations:      <none>
+Status:           Pending
+IP:               192.168.20.118
+IPs:
+  IP:           192.168.20.118
+Controlled By:  ReplicaSet/goumgue-dwp-5bdc657855
+Containers:
+  goumgue-dwp:
+    Container ID:   
+    Image:          goumgue81.jfrog.io/goumgue-docker-local/appagt:2.1.2
+    Image ID:       
+    Port:           8000/TCP
+    Host Port:      0/TCP
+    State:          Waiting
+      Reason:       ImagePullBackOff
+    Ready:          False
+    Restart Count:  0
+    Environment:
+      CONSUMER_KEY:         G6lmKhsi0V9TvXt6oKTfjRBCr
+      CONSUMER_SECRET:      bEyDk8X0p8SQd4376eoNV4nH8To22sHcJOoFt0ZqOKS37hhI4q
+      ACCESS_TOKEN:         9703354-52rXHD6EeOQeYyhtNz1w8UVOgbcLcgOo4O7MB6WV3
+      ACCESS_TOKEN_SECRET:  zBThlZDEp8qnu7NwwdHNth8eg3Rf9zqbvUEFUTaZtN2SF
+    Mounts:
+      /var/run/secrets/kubernetes.io/serviceaccount from kube-api-access-znrjt (ro)
+Conditions:
+  Type                        Status
+  PodReadyToStartContainers   True 
+  Initialized                 True 
+  Ready                       False 
+  ContainersReady             False 
+  PodScheduled                True 
+Volumes:
+  kube-api-access-znrjt:
+    Type:                    Projected (a volume that contains injected data from multiple sources)
+    TokenExpirationSeconds:  3607
+    ConfigMapName:           kube-root-ca.crt
+    ConfigMapOptional:       <nil>
+    DownwardAPI:             true
+QoS Class:                   BestEffort
+Node-Selectors:              <none>
+Tolerations:                 node.kubernetes.io/not-ready:NoExecute op=Exists for 300s
+                             node.kubernetes.io/unreachable:NoExecute op=Exists for 300s
+Events:
+  Type     Reason     Age                    From               Message
+  ----     ------     ----                   ----               -------
+  Normal   Scheduled  6m45s                  default-scheduler  Successfully assigned dev/goumgue-dwp-5bdc657855-55tw6 to ip-192-168-20-214.ec2.internal
+  Normal   Pulling    5m16s (x4 over 6m44s)  kubelet            Pulling image "goumgue81.jfrog.io/goumgue-docker-local/appagt:2.1.2"
+  Warning  Failed     5m16s (x4 over 6m44s)  kubelet            Failed to pull image "goumgue81.jfrog.io/goumgue-docker-local/appagt:2.1.2": failed to pull and unpack image "goumgue81.jfrog.io/goumgue-docker-local/appagt:2.1.2": failed to resolve reference "goumgue81.jfrog.io/goumgue-docker-local/appagt:2.1.2": failed to authorize: failed to fetch anonymous token: unexpected status from GET request to https://goumgue81.jfrog.io/artifactory/api/docker/goumgue-docker-local/v2/token?scope=repository%3Aappagt%3Apull&scope=repository%3Agoumgue-docker-local%2Fappagt%3Apull&service=goumgue81.jfrog.io: 401
+  Warning  Failed     5m16s (x4 over 6m44s)  kubelet            Error: ErrImagePull
+  Warning  Failed     5m2s (x6 over 6m43s)   kubelet            Error: ImagePullBackOff
+  Normal   BackOff    90s (x21 over 6m43s)   kubelet            Back-off pulling image "goumgue81.jfrog.io/goumgue-docker-local/appagt:2.1.2"
